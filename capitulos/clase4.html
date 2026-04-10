@@ -85,7 +85,23 @@
   </div>
 
 </div>
+<!--NAVEGAR CON FLECHAS TECLADO -->
+<script>
+document.addEventListener("keydown", function(event) {
 
+  if (event.key === "ArrowLeft") {
+    const prev = document.querySelector(".nav-buttons a:first-child");
+    if (prev) window.location.href = prev.href;
+  }
+
+  if (event.key === "ArrowRight") {
+    const next = document.querySelector(".nav-buttons a:last-child");
+    if (next) window.location.href = next.href;
+  }
+
+});
+</script>
+<!-- BOTON OCULTAR -->
 <script>
 function toggleRespuesta(id, btn) {
   const div = document.getElementById(id);
