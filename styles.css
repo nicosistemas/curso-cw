@@ -115,3 +115,10 @@ a {
     width: 100%;
   }
 }
+
+.audio-title {
+  font-weight: bold;
+  min-width: 100px;
+  text-align: left;
+  color: #38bdf8;
+}

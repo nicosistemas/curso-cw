@@ -21,58 +21,62 @@
 
   <h2>Audios</h2>
 
-  <!-- AUDIO 1 -->
-  <div class="audio-block">
-    <p><strong>Audio 1</strong></p>
+<!-- AUDIO 1 -->
+<div class="audio-block">
 
-    <div class="audio-row">
-      <audio controls src="../audio/clase1/audio1.mp3"></audio>
+  <div class="audio-row">
+    <span class="audio-title">Audio 1</span>
 
-      <button class="btn" onclick="toggleRespuesta('r1', this)">
-        Mostrar respuesta
-      </button>
-    </div>
+    <audio controls src="../audio/clase1/audio1.mp3"></audio>
 
-    <div id="r1" class="morse" style="display:none; margin-top:10px;">
-      E I S H E S I H E I S H
-    </div>
+    <button class="btn" onclick="toggleRespuesta('r1', this)">
+      Mostrar respuesta
+    </button>
   </div>
 
-  <!-- AUDIO 2 -->
-  <div class="audio-block">
-    <p><strong>Audio 2</strong></p>
-
-    <div class="audio-row">
-      <audio controls src="../audio/clase1/audio2.mp3"></audio>
-
-      <button class="btn" onclick="toggleRespuesta('r2', this)">
-        Mostrar respuesta
-      </button>
-    </div>
-
-    <div id="r2" class="morse" style="display:none; margin-top:10px;">
-      S H I E H S I E S H I E
-    </div>
+  <div id="r1" class="morse" style="display:none; margin-top:10px;">
+    E I S H E S I H E I S H
   </div>
 
-  <!-- AUDIO 3 -->
-  <div class="audio-block">
-    <p><strong>Audio 3</strong></p>
+</div>
 
-    <div class="audio-row">
-      <audio controls src="../audio/clase1/audio3.mp3"></audio>
+<!-- AUDIO 2 -->
+<div class="audio-block">
 
-      <button class="btn" onclick="toggleRespuesta('r3', this)">
-        Mostrar respuesta
-      </button>
-    </div>
+  <div class="audio-row">
+    <span class="audio-title">Audio 2</span>
 
-    <div id="r3" class="morse" style="display:none; margin-top:10px;">
-      E S E I H I S E H I S
-    </div>
+    <audio controls src="../audio/clase1/audio2.mp3"></audio>
+
+    <button class="btn" onclick="toggleRespuesta('r2', this)">
+      Mostrar respuesta
+    </button>
   </div>
 
-  <br><br>
+  <div id="r2" class="morse" style="display:none; margin-top:10px;">
+    E I S H E S I H E I S H
+  </div>
+
+</div>
+
+<!-- AUDIO 3 -->
+<div class="audio-block">
+
+  <div class="audio-row">
+    <span class="audio-title">Audio 3</span>
+
+    <audio controls src="../audio/clase1/audio3.mp3"></audio>
+
+    <button class="btn" onclick="toggleRespuesta('r3', this)">
+      Mostrar respuesta
+    </button>
+  </div>
+
+  <div id="r3" class="morse" style="display:none; margin-top:10px;">
+    E I S H E S I H E I S H
+  </div>
+
+</div>
 
   <div class="nav-buttons">
     <a href="../index.html" class="btn">Inicio</a>
