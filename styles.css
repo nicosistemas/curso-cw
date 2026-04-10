@@ -69,3 +69,7 @@ h1 {
 .btn {
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
+
+.audio-block {
+  margin-bottom: 30px;
+}
