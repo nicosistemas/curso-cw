@@ -39,6 +39,26 @@ h1 {
   background-color: #334155;
 }
 
+/* ===== SECCIONES ===== */
+.section-title {
+  margin-top: 50px;
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+.grid-secondary {
+  margin-top: 20px;
+}
+
+.card.secondary {
+  background-color: #020617;
+  border: 1px solid #334155;
+}
+
+.card.secondary:hover {
+  background-color: #1e293b;
+}
+
 /* ===== BOTONES ===== */
 .nav-buttons {
   margin-top: 30px;
@@ -99,8 +119,26 @@ h1 {
   white-space: nowrap;
 }
 
+.audio-title {
+  font-weight: bold;
+  min-width: 100px;
+  text-align: left;
+  color: #38bdf8;
+}
+
 /* ===== LINKS ===== */
 a {
+  color: #38bdf8;
+}
+
+/* ===== LINK AUTOR ===== */
+.author-link {
+  color: #e5e7eb;
+  text-decoration: none;
+  border-bottom: 1px dashed #38bdf8;
+}
+
+.author-link:hover {
   color: #38bdf8;
 }
 
@@ -114,19 +152,4 @@ a {
   .audio-row .btn {
     width: 100%;
   }
-}
-
-.audio-title {
-  font-weight: bold;
-  min-width: 100px;
-  text-align: left;
-  color: #38bdf8;
-}
-
-.card:last-child {
-  background-color: #14532d;
-}
-
-.card:last-child:hover {
-  background-color: #166534;
 }
