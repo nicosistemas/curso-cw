@@ -15,21 +15,25 @@
 
   <h2>Teoría</h2>
   <p>
-    Estas son las letras en código Morse.
-    Usalo como referencia, pero priorizá el oído.
+    Estas son las letras en código Morse. Usalo como referencia,
+    pero priorizá el reconocimiento auditivo.
   </p>
 
-  <ul>
-    <li>E → .</li>
-    <li>I → ..</li>
-    <li>S → ...</li>
-    <li>H → ....</li>
-  </ul>
+  <p style="font-size: 14px; opacity: 0.7;">
+    No memorices visualmente. Reconocé el sonido.
+  </p>
+
+  <div class="morse">
+    E   .<br>
+    I   ..<br>
+    S   ...<br>
+    H   ....
+  </div>
 
   <h2>Instrucciones</h2>
   <p>
     Escuchá los audios y anotá lo que recibas.
-    No mires las respuestas.
+    Intentá completar antes de ver las respuestas.
   </p>
 
   <h2>Audios</h2>
@@ -43,15 +47,54 @@
   <p>Audio 3</p>
   <audio controls src="../audio/clase1/audio3.mp3"></audio>
 
+  <!-- RESPUESTAS -->
+  <h2>Respuestas</h2>
+
+  <button class="btn" onclick="toggleRespuestas(this)">
+    Mostrar respuestas
+  </button>
+
+  <div id="respuestas" style="display:none; margin-top:20px;">
+
+    <h3>Audio 1</h3>
+    <div class="morse">
+      E I S H E S I H E I S H
+    </div>
+
+    <h3>Audio 2</h3>
+    <div class="morse">
+      S H I E H S I E S H I E
+    </div>
+
+    <h3>Audio 3</h3>
+    <div class="morse">
+      E S E I H I S E H I S
+    </div>
+
+  </div>
+
   <br><br>
 
-  <div>
-    <a href="../index.html">Inicio</a> |
-    <a href="clase1-respuestas.html">Ver respuestas</a> |
-    <a href="clase2.html">Siguiente ➡</a>
+  <div class="nav-buttons">
+    <a href="../index.html" class="btn">Inicio</a>
+    <a href="clase2.html" class="btn">Siguiente ➡</a>
   </div>
 
 </div>
+
+<script>
+function toggleRespuestas(btn) {
+  const div = document.getElementById("respuestas");
+
+  if (div.style.display === "none") {
+    div.style.display = "block";
+    btn.innerText = "Ocultar respuestas";
+  } else {
+    div.style.display = "none";
+    btn.innerText = "Mostrar respuestas";
+  }
+}
+</script>
 
 </body>
 </html>
