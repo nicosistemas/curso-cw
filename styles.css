@@ -4,19 +4,14 @@ body {
   background-color: #0f172a;
   color: #e5e7eb;
   margin: 0;
-
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 .container {
   text-align: center;
   padding: 40px;
+  padding-bottom: 80px;
   max-width: 800px;
   margin: auto;
-
-  flex: 1; /* clave */
 }
 
 h1 {
@@ -161,16 +156,24 @@ a {
 
 .morse-grid {
   display: flex;
-  justify-content: center;
-  gap: 60px;
+  justify-content: space-between;
+  gap: 40px;
 }
 
 .morse-grid div {
-  min-width: 120px;
-  line-height: 1.8;
+  width: 100%;
 }
 
+/* ===== NAV FIJO ABAJO ===== */
 .nav-buttons {
-  margin-top: auto;
-  padding-top: 30px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background-color: #0f172a;
+  border-top: 1px solid #334155;
+
+  padding: 10px 0;
+  text-align: center;
 }
