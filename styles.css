@@ -122,3 +122,11 @@ a {
   text-align: left;
   color: #38bdf8;
 }
+
+.card:last-child {
+  background-color: #14532d;
+}
+
+.card:last-child:hover {
+  background-color: #166534;
+}
