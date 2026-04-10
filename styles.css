@@ -155,10 +155,11 @@ a {
 
 .morse-grid {
   display: flex;
-  justify-content: space-between;
-  gap: 40px;
+  justify-content: center;
+  gap: 60px;
 }
 
 .morse-grid div {
-  width: 100%;
+  min-width: 120px;
+  line-height: 1.8;
 }
