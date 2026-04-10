@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Clase 3</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Clase 3</h1>
+
+  <h2>Letras T N D B</h2>
+
+  <div class="morse">
+    T   -<br>
+    N   -.<br>
+    D   -..<br>
+    B   -...
+  </div>
+
+  <h2>Audios</h2>
+
+<!-- AUDIO 1 -->
+<div class="audio-block">
+
+  <div class="audio-row">
+    <span class="audio-title">Audio 1</span>
+
+    <audio controls src="../audio/clase3/audio1.mp3"></audio>
+
+    <button class="btn" onclick="toggleRespuesta('r1', this)">
+      Mostrar respuesta
+    </button>
+  </div>
+
+  <div id="r1" class="morse" style="display:none; margin-top:10px;">
+    T N D B T N D B T N D B T N D B T N D B
+  </div>
+
+</div>
+
+<!-- AUDIO 2 -->
+<div class="audio-block">
+
+  <div class="audio-row">
+    <span class="audio-title">Audio 2</span>
+
+    <audio controls src="../audio/clase3/audio2.mp3"></audio>
+
+    <button class="btn" onclick="toggleRespuesta('r2', this)">
+      Mostrar respuesta
+    </button>
+  </div>
+
+  <div id="r2" class="morse" style="display:none; margin-top:10px;">
+    T N D B T N D B T N D B T N D B T N D B
+  </div>
+
+</div>
+
+<!-- AUDIO 3 -->
+<div class="audio-block">
+
+  <div class="audio-row">
+    <span class="audio-title">Audio 3</span>
+
+    <audio controls src="../audio/clase3/audio3.mp3"></audio>
+
+    <button class="btn" onclick="toggleRespuesta('r3', this)">
+      Mostrar respuesta
+    </button>
+  </div>
+
+  <div id="r3" class="morse" style="display:none; margin-top:10px;">
+    T N D B T N D B T N D B T N D B T N D B
+  </div>
+
+</div>
+
+  <div class="nav-buttons">
+    <a href="../index.html" class="btn">Inicio</a>
+    <a href="clase4.html" class="btn">Siguiente ➡</a>
+  </div>
+
+</div>
+
+<script>
+function toggleRespuesta(id, btn) {
+  const div = document.getElementById(id);
+
+  if (div.style.display === "none") {
+    div.style.display = "block";
+    btn.innerText = "Ocultar respuesta";
+  } else {
+    div.style.display = "none";
+    btn.innerText = "Mostrar respuesta";
+  }
+}
+</script>
+
+</body>
+</html>
