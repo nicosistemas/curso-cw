@@ -57,7 +57,7 @@
     <div id="status" class="status-msg"></div>
 
     <input type="text" id="input-respuesta" maxlength="1" autocomplete="off" autofocus>
-    <p style="color: #666; margin-top: 10px;">Escribe la letra que escuchas</p>
+    <p style="color: #666; margin-top: 10px;">Escribe el caracter que escuchas</p>
   </div>
 </div>
 
@@ -67,7 +67,9 @@ const morseAlphabet = {
     'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
     'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
     'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
-    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..'
+    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
+    '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
+    '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'
 };
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();

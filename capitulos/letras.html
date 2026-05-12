@@ -74,12 +74,15 @@
 </div>
 
 <script>
+
 const morseAlphabet = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
     'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
     'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
     'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
-    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..'
+    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
+    '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
+    '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'
 };
 
 let letraActual = "";
@@ -110,7 +113,8 @@ function cerrarDetalle() {
 
 function reproducir() {
     const code = morseAlphabet[letraActual];
-    const dotTime = 0.1;
+    // dotTime = 1.2 / 15 WPM = 0.08
+    const dotTime = 0.08; 
     let time = audioCtx.currentTime;
 
     code.split('').forEach(symbol => {
@@ -119,19 +123,23 @@ function reproducir() {
         osc.connect(gain);
         gain.connect(audioCtx.destination);
 
-        osc.frequency.value = 700; // Frecuencia de tono CW estándar
+        osc.frequency.value = 700; // Mantenemos el tono estándar
         const duration = symbol === '.' ? dotTime : dotTime * 3;
 
+        // Suavizado de bordes para evitar clics de audio
         gain.gain.setValueAtTime(0, time);
-        gain.gain.linearRampToValueAtTime(0.1, time + 0.01);
-        gain.gain.setValueAtTime(0.1, time + duration - 0.01);
+        gain.gain.linearRampToValueAtTime(0.1, time + 0.005);
+        gain.gain.setValueAtTime(0.1, time + duration - 0.005);
         gain.gain.linearRampToValueAtTime(0, time + duration);
 
         osc.start(time);
         osc.stop(time + duration);
+        
+        // Espacio entre puntos y rayas dentro de la misma letra
         time += duration + dotTime;
     });
 }
+
 </script>
 
 </body>
