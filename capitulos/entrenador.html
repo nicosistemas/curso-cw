@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Entrenador CW - Velocidad Variable</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .entrenador-container {
+      text-align: center;
+      padding: 30px;
+      background: #1a1a1a;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+    .speed-control {
+      margin: 20px 0;
+      color: #ccc;
+    }
+    #input-respuesta {
+      font-size: 3rem;
+      width: 100px;
+      text-align: center;
+      background: #222;
+      color: #8a2be2;
+      border: 2px solid #444;
+      border-radius: 10px;
+      text-transform: uppercase;
+      padding: 10px;
+    }
+    .status-msg {
+      height: 30px;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+    .success { color: #4caf50; }
+    .error { color: #f44336; }
+    
+    input[type=range] { width: 200px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Entrenador de Recepción</h1>
+  <a href="../index.html" style="color: #8a2be2; text-decoration: none;">← Volver al inicio</a>
+
+  <div class="entrenador-container">
+    <div class="speed-control">
+      <label>Velocidad: <span id="wpm-val">25</span> WPM</label><br>
+      <input type="range" id="speed-slider" min="20" max="30" value="25">
+    </div>
+
+    <button id="btn-reproducir" class="card" style="width: 200px; margin: 0 auto 20px auto; cursor: pointer;">
+      Escuchar Letra
+    </button>
+
+    <div id="status" class="status-msg"></div>
+
+    <input type="text" id="input-respuesta" maxlength="1" autocomplete="off" autofocus>
+    <p style="color: #666; margin-top: 10px;">Escribe la letra que escuchas</p>
+  </div>
+</div>
+
+<script>
+const morseAlphabet = {
+    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
+    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
+    'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..'
+};
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let letraActual = "";
+let esperandoRespuesta = false;
+
+const slider = document.getElementById('speed-slider');
+const wpmVal = document.getElementById('wpm-val');
+const input = document.getElementById('input-respuesta');
+const status = document.getElementById('status');
+const btnPlay = document.getElementById('btn-reproducir');
+
+slider.oninput = () => wpmVal.innerText = slider.value;
+
+function getNuevaLetra() {
+    const letras = Object.keys(morseAlphabet);
+    letraActual = letras[Math.floor(Math.random() * letras.length)];
+    esperandoRespuesta = true;
+    status.innerText = "";
+    input.value = "";
+    input.focus();
+}
+
+function reproducirCW(letra) {
+    const code = morseAlphabet[letra];
+    const wpm = parseInt(slider.value);
+    // Fórmula estándar: dot_time = 1.2 / WPM
+    const dotTime = 1.2 / wpm;
+    let time = audioCtx.currentTime;
+
+    code.split('').forEach(symbol => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.frequency.value = 700;
+        const duration = symbol === '.' ? dotTime : dotTime * 3;
+
+        gain.gain.setValueAtTime(0, time);
+        gain.gain.linearRampToValueAtTime(0.1, time + 0.005);
+        gain.gain.setValueAtTime(0.1, time + duration - 0.005);
+        gain.gain.linearRampToValueAtTime(0, time + duration);
+
+        osc.start(time);
+        osc.stop(time + duration);
+        time += duration + dotTime;
+    });
+}
+
+btnPlay.onclick = () => {
+    if (!esperandoRespuesta) getNuevaLetra();
+    reproducirCW(letraActual);
+};
+
+input.oninput = () => {
+    const valor = input.value.toUpperCase();
+    if (valor === letraActual) {
+        status.innerText = "¡Correcto!";
+        status.className = "status-msg success";
+        esperandoRespuesta = false;
+        // Pequeña pausa antes de la siguiente letra
+        setTimeout(getNuevaLetra, 1000);
+        setTimeout(() => reproducirCW(letraActual), 1200);
+    } else if (valor.length === 1) {
+        status.innerText = "Incorrecto, intenta de nuevo...";
+        status.className = "status-msg error";
+        input.value = "";
+        reproducirCW(letraActual); // Vuelve a tocar la letra para ayudar
+    }
+};
+
+// Iniciar la primera vez
+window.onload = getNuevaLetra;
+</script>
+
+</body>
+</html>
