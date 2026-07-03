@@ -87,9 +87,8 @@
   </div>
 
   <h2>Resumen de la Clase</h2>
-  <div style="text-align: center; margin: 25px 0 100px 0;">
-    <img src="../img/clase1/resumen.jpeg" alt="Resumen visual letras E I S H" class="img-preview" onclick="abrirModal()">
-    <p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">(Haz clic en la imagen para agrandarla)</p>
+  <div style="text-align: center; margin: 25px 0 120px 0;">
+    <img src="../img/clase1/resumen.jpeg" alt="Resumen visual letras E I S H" style="max-width: 100%; height: auto; border: 1px solid #334155; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
   </div>
 
   <div class="nav-buttons">
@@ -97,11 +96,6 @@
     <a href="clase2.html" class="btn">Siguiente ➡</a>
   </div>
 
-</div>
-
-<div id="miModal" class="modal" onclick="cerrarModal()">
-  <span class="close-modal" onclick="cerrarModal()">&times;</span>
-  <img class="modal-content" src="../img/clase1/resumen.jpeg" alt="Resumen Agrandado" onclick="event.stopPropagation();">
 </div>
 
 <script>
@@ -114,10 +108,6 @@ document.addEventListener("keydown", function(event) {
   if (event.key === "ArrowRight") {
     const next = document.querySelector(".nav-buttons a:last-child");
     if (next) window.location.href = next.href;
-  }
-
-  if (event.key === "Escape") {
-    cerrarModal();
   }
 });
 </script>
@@ -133,15 +123,6 @@ function toggleRespuesta(id, btn) {
     div.style.display = "none";
     btn.innerText = "Mostrar respuesta";
   }
-}
-
-function abrirModal() {
-  document.getElementById("miModal").style.display = "flex";
-}
-
-function cerrarModal() {
-  document.getElementById("miModal").style.none = "none";
-  document.getElementById("miModal").style.display = "none";
 }
 </script>
 
