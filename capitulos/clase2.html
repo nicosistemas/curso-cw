@@ -20,74 +20,86 @@
 
   <h2>Audios</h2>
 
-<!-- AUDIO 1 -->
-<div class="audio-block">
-
-  <div class="audio-row">
-    <span class="audio-title">Audio 1</span>
-
-    <audio controls src="../audio/clase2/audio1.mp3"></audio>
-
-    <button class="btn" onclick="toggleRespuesta('r1', this)">
-      Mostrar respuesta
-    </button>
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 1</span>
+      <audio controls src="../audio/clase2/audio1.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r1', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r1" class="morse" style="display:none; margin-top:10px;">
+      A U V U A V A U V A U U V A V U A V U A U V A U V
+    </div>
   </div>
 
-  <div id="r1" class="morse" style="display:none; margin-top:10px;">
-    A U V U A V A U V A U U V A V U A V U A U V A U V
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 2</span>
+      <audio controls src="../audio/clase2/audio2.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r2', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r2" class="morse" style="display:none; margin-top:10px;">
+      V A U V U A V A U V A V U A U V A U V A U V A U V
+    </div>
   </div>
 
-</div>
-
-<!-- AUDIO 2 -->
-<div class="audio-block">
-
-  <div class="audio-row">
-    <span class="audio-title">Audio 2</span>
-
-    <audio controls src="../audio/clase2/audio2.mp3"></audio>
-
-    <button class="btn" onclick="toggleRespuesta('r2', this)">
-      Mostrar respuesta
-    </button>
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio Mix</span>
+      <audio controls src="../audio/clase2/audio3.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r3', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r3" class="morse" style="display:none; margin-top:10px;">
+      E A I S H U V E I A S U H V E I S A U V H E I A S V U H I E
+    </div>
   </div>
 
-  <div id="r2" class="morse" style="display:none; margin-top:10px;">
-    V A U V U A V A U V A V U A U V A U V A U V A U V
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 4</span>
+      <audio controls src="../audio/clase2/audio4.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r4', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r4" class="morse" style="display:none; margin-top:10px;">
+      V V U A A U A V V U A U A U V V A A U V U U V A A A V U V V U A U A A V V U A V U A V U U V A U A V
+    </div>
   </div>
 
-</div>
-
-<!-- AUDIO 3 -->
-<div class="audio-block">
-
-  <div class="audio-row">
-    <span class="audio-title">Audio Mix</span>
-
-    <audio controls src="../audio/clase2/audio3.mp3"></audio>
-
-    <button class="btn" onclick="toggleRespuesta('r3', this)">
-      Mostrar respuesta
-    </button>
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 5</span>
+      <audio controls src="../audio/clase2/audio5.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r5', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r5" class="morse" style="display:none; margin-top:10px;">
+      A A U V V U A V U A V A V U U A A V A U V V U A A U A V A V U U A V V A U V A A V U V U A V A V A U
+    </div>
   </div>
 
-  <div id="r3" class="morse" style="display:none; margin-top:10px;">
-    E A I S H U V E I A S U H V E I S A U V H E I A S V U H I E
+  <h2>Resumen de la Clase</h2>
+  <div style="text-align: center; margin: 25px 0 120px 0;">
+    <img src="../img/clase2/resumen.jpeg" alt="Resumen visual letras A U V" style="max-width: 100%; height: auto; border: 1px solid #334155; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.4);">
   </div>
-
-</div>
 
   <div class="nav-buttons">
     <a href="clase1.html" class="btn">Anterior</a>
-    <a href="../index.html" class="btn nav-center">Inicio</a>
+    <a href="../index.html" class="btn">Inicio</a>
     <a href="clase3.html" class="btn">Siguiente ➡</a>
   </div>
 
 </div>
-<!--NAVEGAR CON FLECHAS TECLADO -->
+
 <script>
 document.addEventListener("keydown", function(event) {
-
   if (event.key === "ArrowLeft") {
     const prev = document.querySelector(".nav-buttons a:first-child");
     if (prev) window.location.href = prev.href;
@@ -97,10 +109,9 @@ document.addEventListener("keydown", function(event) {
     const next = document.querySelector(".nav-buttons a:last-child");
     if (next) window.location.href = next.href;
   }
-
 });
 </script>
-<!-- BOTON OCULTAR -->
+
 <script>
 function toggleRespuesta(id, btn) {
   const div = document.getElementById(id);
