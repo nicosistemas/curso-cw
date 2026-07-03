@@ -69,7 +69,7 @@
       </button>
     </div>
     <div id="r4" class="morse" style="display:none; margin-top:10px;">
-      H S S I E E I I E H S E S E I H I H S H E E S S I H I E H S S I E E I H S S H E  E I I H S E H E S I
+      H S S I E E I I E H S E S E I H I H S H E E S S I H I E H S S I E E I H S S H E E I I H S E H E S I
     </div>
   </div>
 
@@ -88,7 +88,7 @@
 
   <h2>Resumen de la Clase</h2>
   <div style="text-align: center; margin: 25px 0 100px 0;">
-    <img src="../images/clase1/resumen.jpeg" alt="Resumen visual letras E I S H" class="img-preview" onclick="abrirModal()">
+    <img src="../img/clase1/resumen.jpeg" alt="Resumen visual letras E I S H" class="img-preview" onclick="abrirModal()">
     <p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">(Haz clic en la imagen para agrandarla)</p>
   </div>
 
@@ -101,7 +101,7 @@
 
 <div id="miModal" class="modal" onclick="cerrarModal()">
   <span class="close-modal" onclick="cerrarModal()">&times;</span>
-  <img class="modal-content" src="../images/clase1/resumen.jpeg" alt="Resumen Agrandado" onclick="event.stopPropagation();">
+  <img class="modal-content" src="../img/clase1/resumen.jpeg" alt="Resumen Agrandado" onclick="event.stopPropagation();">
 </div>
 
 <script>
@@ -140,6 +140,7 @@ function abrirModal() {
 }
 
 function cerrarModal() {
+  document.getElementById("miModal").style.none = "none";
   document.getElementById("miModal").style.display = "none";
 }
 </script>
