@@ -13,70 +13,84 @@
   <h2>Letras E I S H</h2>
 
   <div class="morse">
-    E   .<br>
-    I   ..<br>
-    S   ...<br>
-    H   ....
+    E    .<br>
+    I    ..<br>
+    S    ...<br>
+    H    ....
   </div>
 
   <h2>Audios</h2>
 
-<!-- AUDIO 1 -->
-<div class="audio-block">
-
-  <div class="audio-row">
-    <span class="audio-title">Audio 1</span>
-
-    <audio controls src="../audio/clase1/audio1.mp3"></audio>
-
-    <button class="btn" onclick="toggleRespuesta('r1', this)">
-      Mostrar respuesta
-    </button>
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 1</span>
+      <audio controls src="../audio/clase1/audio1.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r1', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r1" class="morse" style="display:none; margin-top:10px;">
+      E I S H S E I H E S I H E E S H I S E H I E S I H
+    </div>
   </div>
 
-  <div id="r1" class="morse" style="display:none; margin-top:10px;">
-    E I S H S E I H E S I H E E S H I S E H I E S I H
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 2</span>
+      <audio controls src="../audio/clase1/audio2.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r2', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r2" class="morse" style="display:none; margin-top:10px;">
+      S H I E S I H E I S H S E I E H S I H E S I E H I
+    </div>
   </div>
 
-</div>
-
-<!-- AUDIO 2 -->
-<div class="audio-block">
-
-  <div class="audio-row">
-    <span class="audio-title">Audio 2</span>
-
-    <audio controls src="../audio/clase1/audio2.mp3"></audio>
-
-    <button class="btn" onclick="toggleRespuesta('r2', this)">
-      Mostrar respuesta
-    </button>
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 3</span>
+      <audio controls src="../audio/clase1/audio3.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r3', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r3" class="morse" style="display:none; margin-top:10px;">
+      I E H S I E S H E I S H I H E S I E S H E I H S I
+    </div>
   </div>
 
-  <div id="r2" class="morse" style="display:none; margin-top:10px;">
-    S H I E S I H E I S H S E I E H S I H E S I E H I
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 4</span>
+      <audio controls src="../audio/clase1/audio4.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r4', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r4" class="morse" style="display:none; margin-top:10px;">
+      H S S I E E I I E H S E S E I H I H S H E E S S I H I E H S S I E E I H S S H E  E I I H S E H E S I
+    </div>
   </div>
 
-</div>
-
-<!-- AUDIO 3 -->
-<div class="audio-block">
-
-  <div class="audio-row">
-    <span class="audio-title">Audio 3</span>
-
-    <audio controls src="../audio/clase1/audio3.mp3"></audio>
-
-    <button class="btn" onclick="toggleRespuesta('r3', this)">
-      Mostrar respuesta
-    </button>
+  <div class="audio-block">
+    <div class="audio-row">
+      <span class="audio-title">Audio 5</span>
+      <audio controls src="../audio/clase1/audio5.mp3"></audio>
+      <button class="btn" onclick="toggleRespuesta('r5', this)">
+        Mostrar respuesta
+      </button>
+    </div>
+    <div id="r5" class="morse" style="display:none; margin-top:10px;">
+      E E I S H H S S I E H I E H S S E E I H S S H H E I I H S E H E S I E E S S H I H I E E S S H I H I
+    </div>
   </div>
 
-  <div id="r3" class="morse" style="display:none; margin-top:10px;">
-    I E H S I E S H E I S H I H E S I E S H E I H S I
+  <h2>Resumen de la Clase</h2>
+  <div style="text-align: center; margin: 25px 0 100px 0;">
+    <img src="../images/clase1/resumen.jpeg" alt="Resumen visual letras E I S H" class="img-preview" onclick="abrirModal()">
+    <p style="font-size: 14px; color: #94a3b8; margin-top: 8px;">(Haz clic en la imagen para agrandarla)</p>
   </div>
-
-</div>
 
   <div class="nav-buttons">
     <a href="../index.html" class="btn">Inicio</a>
@@ -84,10 +98,14 @@
   </div>
 
 </div>
-<!--NAVEGAR CON FLECHAS TECLADO -->
+
+<div id="miModal" class="modal" onclick="cerrarModal()">
+  <span class="close-modal" onclick="cerrarModal()">&times;</span>
+  <img class="modal-content" src="../images/clase1/resumen.jpeg" alt="Resumen Agrandado" onclick="event.stopPropagation();">
+</div>
+
 <script>
 document.addEventListener("keydown", function(event) {
-
   if (event.key === "ArrowLeft") {
     const prev = document.querySelector(".nav-buttons a:first-child");
     if (prev) window.location.href = prev.href;
@@ -98,9 +116,12 @@ document.addEventListener("keydown", function(event) {
     if (next) window.location.href = next.href;
   }
 
+  if (event.key === "Escape") {
+    cerrarModal();
+  }
 });
 </script>
-<!-- BOTON OCULTAR -->
+
 <script>
 function toggleRespuesta(id, btn) {
   const div = document.getElementById(id);
@@ -112,6 +133,14 @@ function toggleRespuesta(id, btn) {
     div.style.display = "none";
     btn.innerText = "Mostrar respuesta";
   }
+}
+
+function abrirModal() {
+  document.getElementById("miModal").style.display = "flex";
+}
+
+function cerrarModal() {
+  document.getElementById("miModal").style.display = "none";
 }
 </script>
 
