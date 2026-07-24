@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluación CW - Indicativos de Radioaficionados</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .entrenador-container {
+      text-align: center;
+      padding: 30px;
+      background: #1a1a1a;
+      border-radius: 15px;
+      margin-top: 20px;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .speed-control {
+      margin: 15px 0;
+      color: #ccc;
+    }
+    #input-respuesta {
+      font-size: 2rem;
+      width: 250px;
+      text-align: center;
+      background: #222;
+      color: #8a2be2;
+      border: 2px solid #444;
+      border-radius: 10px;
+      text-transform: uppercase;
+      padding: 10px;
+      letter-spacing: 2px;
+    }
+    .status-msg {
+      height: 30px;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+    .success { color: #4caf50; }
+    .error { color: #f44336; }
+    .info { color: #ff9800; }
+    
+    input[type=range] { width: 200px; cursor: pointer; }
+
+    /* Estilos para la lista de indicativos ajustada en una sola línea */
+    .indicativos-list {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 20px 0;
+      flex-wrap: nowrap;
+    }
+    .indicativo-item {
+      background: #2a2a2a;
+      border: 2px solid #444;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: monospace;
+      font-size: 1rem;
+      color: #777;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .indicativo-item.completado {
+      background: #1b3b1a;
+      border-color: #4caf50;
+      color: #4caf50;
+      font-weight: bold;
+    }
+    .indicativo-item.activo {
+      border-color: #8a2be2;
+      color: #fff;
+      background: #2d1f3d;
+    }
+
+    .btn-action {
+      background: #8a2be2;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 5px;
+      transition: background 0.2s;
+    }
+    .btn-action:hover {
+      background: #7522be;
+    }
+    .btn-secondary {
+      background: #444;
+    }
+    .btn-secondary:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+  <h1>Evaluación de Indicativos CW</h1>
+  <a href="../index.html" style="color: #8a2be2; text-decoration: none;">← Volver al inicio</a>
+
+  <div class="entrenador-container">
+    <div class="speed-control">
+      <label>Velocidad: <span id="wpm-val">25</span> WPM</label><br>
+      <input type="range" id="speed-slider" min="15" max="30" value="25">
+    </div>
+
+    <!-- Indicadores visuales de los 5 indicativos -->
+    <div class="indicativos-list" id="lista-indicativos">
+      <!-- Se llenan dinámicamente -->
+    </div>
+
+    <div>
+      <button id="btn-reproducir" class="btn-action">Escuchar (Espacio)</button>
+      <button id="btn-nuevo-set" class="btn-action btn-secondary">Generar Nuevos Random</button>
+    </div>
+
+    <div id="status" class="status-msg"></div>
+
+    <div id="panel-input">
+      <input type="text" id="input-respuesta" maxlength="10" autocomplete="off" autofocus placeholder="Escribe aquí...">
+      <p style="color: #666; margin-top: 10px;" id="instrucciones-input">Escribe el indicativo, presiona <b>ENTER</b> para validar y la <b>BARRA ESPACIADORA</b> para volver a escuchar.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const morseAlphabet = {
+    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
+    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
+    'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
+    '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
+    '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
+    '/': '-..-.'
+};
+
+let evaluacionIndicativos = [];
+let indiceActual = 0;
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+const slider = document.getElementById('speed-slider');
+const wpmVal = document.getElementById('wpm-val');
+const input = document.getElementById('input-respuesta');
+const status = document.getElementById('status');
+const btnPlay = document.getElementById('btn-reproducir');
+const btnNuevoSet = document.getElementById('btn-nuevo-set');
+const listaContainer = document.getElementById('lista-indicativos');
+const panelInput = document.getElementById('panel-input');
+
+slider.oninput = () => wpmVal.innerText = slider.value;
+
+function generarIndicativoAleatorio() {
+    const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numeros = "0123456789";
+    
+    let prefijo = "";
+    for(let i = 0; i < 2; i++) {
+        prefijo += letras.charAt(Math.floor(Math.random() * letras.length));
+    }
+    
+    const numero = numeros.charAt(Math.floor(Math.random() * numeros.length));
+    
+    let sufijo = "";
+    for(let i = 0; i < 3; i++) {
+        sufijo += letras.charAt(Math.floor(Math.random() * letras.length));
+    }
+    
+    return prefijo + numero + sufijo;
+}
+
+function iniciarEvaluacion() {
+    let setIndicativos = [];
+    while(setIndicativos.length < 5) {
+        let nuevo = generarIndicativoAleatorio();
+        if(!setIndicativos.includes(nuevo)) {
+            setIndicativos.push(nuevo);
+        }
+    }
+
+    evaluacionIndicativos = setIndicativos.map(call => ({
+        callsign: call,
+        completado: false
+    }));
+    indiceActual = 0;
+    
+    panelInput.style.display = 'block';
+    btnPlay.style.display = 'inline-block';
+
+    renderLista();
+    prepararActual();
+}
+
+function renderLista() {
+    listaContainer.innerHTML = "";
+    evaluacionIndicativos.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = "indicativo-item";
+        if (item.completado) {
+            div.classList.add('completado');
+            div.innerText = item.callsign; 
+        } else if (idx === indiceActual) {
+            div.classList.add('activo');
+            div.innerText = "• • • • •"; 
+        } else {
+            div.innerText = "- - - - -";
+        }
+        listaContainer.appendChild(div);
+    });
+}
+
+function prepararActual() {
+    if (indiceActual >= evaluacionIndicativos.length) {
+        status.innerText = "¡APROBADO! Todas las distintivas son correctas";
+        status.className = "status-msg success";
+        panelInput.style.display = 'none';
+        btnPlay.style.display = 'none';
+        renderLista();
+        return;
+    }
+    status.innerText = "";
+    status.className = "status-msg";
+    input.value = "";
+    input.focus();
+    renderLista();
+    setTimeout(() => reproducirIndicativo(evaluacionIndicativos[indiceActual].callsign), 400);
+}
+
+function reproducirCWLetra(letra, wpm, timeRef) {
+    const code = morseAlphabet[letra];
+    if (!code) return timeRef;
+    const dotTime = 1.2 / wpm;
+    let time = timeRef;
+
+    code.split('').forEach(symbol => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.frequency.value = 700;
+        const duration = symbol === '.' ? dotTime : dotTime * 3;
+
+        gain.gain.setValueAtTime(0, time);
+        gain.gain.linearRampToValueAtTime(0.1, time + 0.005);
+        gain.gain.setValueAtTime(0.1, time + duration - 0.005);
+        gain.gain.linearRampToValueAtTime(0, time + duration);
+
+        osc.start(time);
+        osc.stop(time + duration);
+        time += duration + dotTime;
+    });
+    return time + (dotTime * 2);
+}
+
+function reproducirIndicativo(callsign) {
+    if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    const wpm = parseInt(slider.value);
+    let time = audioCtx.currentTime;
+
+    callsign.split('').forEach(char => {
+        time = reproducirCWLetra(char, wpm, time);
+    });
+}
+
+btnPlay.onclick = () => {
+    if (indiceActual < evaluacionIndicativos.length) {
+        reproducirIndicativo(evaluacionIndicativos[indiceActual].callsign);
+    }
+};
+
+btnNuevoSet.onclick = () => {
+    iniciarEvaluacion();
+};
+
+input.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+        e.preventDefault();
+        if (indiceActual < evaluacionIndicativos.length) {
+            reproducirIndicativo(evaluacionIndicativos[indiceActual].callsign);
+        }
+        return;
+    }
+
+    if (e.key === 'Enter') {
+        const valorIngresado = input.value.trim().toUpperCase();
+        if(!valorIngresado) return;
+        
+        const actual = evaluacionIndicativos[indiceActual].callsign;
+
+        if (valorIngresado === actual) {
+            status.innerText = "Correcto! Indicativo validado.";
+            status.className = "status-msg success";
+            evaluacionIndicativos[indiceActual].completado = true;
+            indiceActual++;
+            setTimeout(prepararActual, 1200);
+        } else {
+            status.innerText = "Incorrecto, puedes corregir tu texto o presionar ESPACIO para volver a escuchar.";
+            status.className = "status-msg error";
+            reproducirIndicativo(actual);
+        }
+    }
+});
+
+window.onload = iniciarEvaluacion;
+</script>
+
+</body>
+</html>
