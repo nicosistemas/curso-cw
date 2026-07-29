@@ -242,7 +242,7 @@ function reproducirCWLetra(letra, wpm, timeRef) {
         osc.connect(gain);
         gain.connect(audioCtx.destination);
 
-        osc.frequency.value = 700;
+        osc.frequency.value = 550;
         const duration = symbol === '.' ? dotTime : dotTime * 3;
 
         gain.gain.setValueAtTime(0, time);
