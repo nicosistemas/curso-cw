@@ -8,23 +8,37 @@
 
   <!-- Estilos específicos de esta clase -->
   <style>
-    .morse-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      font-size: 1.2em;
-      line-height: 1.8;
+    /* El recuadro aprovecha todo el ancho */
+    .morse-wide {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 12px;
     }
 
+    /* 3 columnas bien distribuidas */
+    .morse-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+      width: 100%;
+    }
+
+    /* Texto más chico y cómodo */
     .morse-grid-3 div {
-      background: rgba(255,255,255,0.05);
-      padding: 15px;
-      border-radius: 10px;
+      font-size: 1rem;
+      line-height: 1.9;
+      white-space: nowrap;
     }
 
     @media (max-width: 700px) {
       .morse-grid-3 {
         grid-template-columns: 1fr;
+      }
+
+      .morse-grid-3 div {
+        white-space: normal;
       }
     }
   </style>
@@ -37,7 +51,7 @@
 
   <h2>Números y signos</h2>
 
-  <div class="morse">
+  <div class="morse morse-wide">
     <div class="morse-grid-3">
 
       <div>
@@ -122,7 +136,7 @@
     </div>
 
     <div id="r3" class="morse" style="display:none; margin-top:10px;">
-      <strong style="font-size: 1.3em;">
+      <strong style="font-size: 1.2em;">
         CQ CQ CQ DE LU2FTI K<br>
         LU5FB 5NN 1830 TU 73 EE
       </strong>
@@ -137,7 +151,6 @@
 
 </div>
 
-<!-- NAVEGAR CON FLECHAS DEL TECLADO -->
 <script>
 document.addEventListener("keydown", function(event) {
 
@@ -154,7 +167,6 @@ document.addEventListener("keydown", function(event) {
 });
 </script>
 
-<!-- BOTÓN MOSTRAR / OCULTAR RESPUESTA -->
 <script>
 function toggleRespuesta(id, btn) {
   const div = document.getElementById(id);
